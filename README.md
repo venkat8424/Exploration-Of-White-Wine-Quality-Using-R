@@ -11,7 +11,7 @@ of the wine depends more on other factors such as the quality of the grapes, the
 picked, the climatic conditions etc. The analysis can be improved if such information was available and also a predictive
 model could be built.
 
-Running the project
+# Running the project
 
 The analysis is done in an R markdown notebook and the results can be seen by running the individual cells of the notebook.
 A knitted html file of the markdown notebook is also available to directly see the results.
