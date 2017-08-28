@@ -2,6 +2,7 @@ Exploration of white wine quality by Sai Venkat Kotha
 ========================================================
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
+# Loading necessary packages and libraries
 library(ggplot2)
 library(memisc)
 ```
@@ -20,6 +21,7 @@ information about various chemical properties of the wine.
 # Structure of the data
 
 ```{r echo=FALSE, Structure}
+# Structure of the data
 str(wines)
 ```
 
@@ -28,12 +30,14 @@ It can be seen that the dataset contains 4898 instances and there are
 'quality' provides a rating for the wine.
 
 ```{r echo=FALSE, Summary}
+# Summary of all the variables
 summary(wines)
 ```
 
 # Exploring individual variables
 
 ```{r echo=FALSE, Univariate_Plots-1}
+# Histogram of fixed.acifity
 qplot(data = wines, x = fixed.acidity, binwidth = 0.5, 
       xlab = "fixed.acidity (gm/litre)") +
   scale_x_continuous(limits = c(3,15), breaks = seq(3,15,0.5))
@@ -45,6 +49,7 @@ of the wines have a fixed.acidity value between 6 and 7.5 and there are very
 few wines whose whose fixed acidity is less than 5 or more than 9.
 
 ```{r echo=FALSE, Univariate_Plots-2}
+# Histogram of volatile.acidity
 qplot(data = wines, x = volatile.acidity, binwidth = 0.1, 
       xlab = "volatile.acidity (gm/litre)") +
   scale_x_continuous(limits = c(0,1.3), breaks = seq(0,1.3,0.1))
@@ -56,6 +61,7 @@ value of 0.2 or 0.3 and there are very few wines whose volatile.acidity value is
 more than 0.5.
 
 ```{r echo=FALSE, Univariate_Plots-3}
+# Histogram of citric acid
 qplot(data = wines, x = citric.acid, binwidth = 0.1, 
       xlab = "citric.acid (gm/litre)") +
   scale_x_continuous(breaks = seq(0,1.7,0.1))
@@ -66,6 +72,7 @@ the wines have a citric acid amount less than 0.4. There are also a few outliers
 where the amount of citiric acid is more than 1.
 
 ```{r echo=FALSE, message = FALSE, warning = FALSE, Univariate_Plots-4}
+# Histogram of residual.sugar
 qplot(data = wines, x = residual.sugar, binwidth = 1, 
       xlab = "residual.sugar (gm/litre)") +
   scale_x_continuous(limits = c(0,20), breaks = seq(0,20,1))
@@ -77,6 +84,7 @@ have a residual.sugar value less than 10 and there are a few outliers whose
 residual.sugar value is more than 20.
 
 ```{r echo=FALSE, message = FALSE, warning = FALSE, Univariate_Plots-5}
+# Histogram of residual.sugar after log transformation
 qplot(data = wines, x = residual.sugar, xlab = "residual.sugar (gm/litre)") +
   scale_x_log10()
 ```
@@ -86,6 +94,7 @@ acheive a better distribution. The transformed distribution looks bimodal with
 peaks at around 3 and 9.
 
 ```{r echo=FALSE, message = FALSE, warning = FALSE, Univariate_Plots-6}
+# Histogram of chlorides
 qplot(data = wines, x = chlorides, binwidth = 0.02, 
       xlab = "chlorides (gm/litre)") +
   scale_x_continuous(breaks = seq(0, 0.4, 0.02))
@@ -96,6 +105,7 @@ wines have a chlorides amount of 0.04 and there are very few wines whose
 chlorides amount is more than 0.06.
 
 ```{r echo=FALSE, message = FALSE, warning = FALSE, Univariate_Plots-7}
+# Histogram of free.sulfur.dioxide
 qplot(data = wines, x = free.sulfur.dioxide, binwidth = 10, 
       xlab = "free.sulfur.dioxide (gm/mL)") +
   scale_x_continuous(limits = c(0,150), breaks = seq(0,150,10))
@@ -107,6 +117,7 @@ levels between 2 and 45. There are less number of wines whose free sulfur
 dioxide level is more than 60.
 
 ```{r echo=FALSE, message = FALSE, warning = FALSE, Univariate_Plots-8}
+# Histogram of total.sulfur.dioxide
 qplot(data = wines, x = total.sulfur.dioxide, binwidth = 20, 
       xlab = "total.sulfur.dioxide (gm/mL)") +
   scale_x_continuous(limits = c(0,300), breaks = seq(0,300,20))
@@ -119,6 +130,7 @@ between 100 and 160. The average amount of total sulfur dioxide in the wines
 is 138.4 gm/litre.
 
 ```{r echo=FALSE, Univariate_Plots-9}
+# Histogram of alcohol
 qplot(data = wines, x = alcohol, binwidth = 0.5, 
       xlab = "alcohol (% by volume)") +
   scale_x_continuous(limits = c(7.5,15), breaks = seq(7.5,15,0.5))
@@ -130,6 +142,7 @@ and 10.5. About 75% of the wines have an alcohol content value between 8 and
 11.5.
 
 ```{r echo=FALSE, Univariate_Plots-10}
+# Histogram of quality
 qplot(data = wines, x = quality, binwidth = 1) +
   scale_x_continuous(limits = c(0,10), breaks = seq(0,10,1))
 ```
@@ -176,10 +189,12 @@ transformation changed the distribution to bimodal with peaks at 3 and 9.
 ### Correlation coefficients
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Bivariate_Plots-1}
+# Correlation coefficients among variables
 cor(wines)
 ```
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Bivariate_Plots-2}
+# Box-plot of quality vs alcohol
 ggplot(data = wines, aes(x = factor(quality), y = alcohol)) +
   geom_jitter(alpha = 1/4) +
   geom_boxplot(col = "green") + 
@@ -193,6 +208,7 @@ average alcohol amount of around 10% whereas the wines with higher quality
 ratings have average alcohol amount more than 11%.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Bivariate_Plots-3}
+# Box-plot of quality vs density
 ggplot(data = wines, aes(x = factor(quality), y = density)) +
   geom_jitter(alpha = 1/4) +
   geom_boxplot(col = "green") +
@@ -206,6 +222,7 @@ that of the wines with lower quality. The density of almost all the wines is
 within the range 0.985 to 1.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Bivariate_Plots-4}
+# Box-plot of quality vs residual.sugar
 ggplot(data = wines, aes(x = factor(quality), y = residual.sugar)) +
   geom_jitter(alpha = 1/4) +
   geom_boxplot(col = "green") +
@@ -218,6 +235,7 @@ The amount of residual sugar appears to be in same amounts across all the
 qualities of the wine.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Bivariate_Plots-5}
+# Box-plot of quality vs total.sulfur.dioxide
 ggplot(data = wines, aes(x = factor(quality), y = total.sulfur.dioxide)) +
   geom_jitter(alpha = 1/5) +
   geom_boxplot(col = "green") +
@@ -231,6 +249,7 @@ the quality of the wine. The wines of all quality have total sulfur dioxide
 amounts in the same range between 50 and 250.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Bivariate_Plots-13}
+# Scatter plot between residual.sugar and total.sulfur.dioxide
 ggplot(data = wines, aes(x = residual.sugar, y = total.sulfur.dioxide)) +
   geom_point(alpha = 1/5) +
   labs(x = "residual.sugar (gm/litre)",y = "total.sulfur.dioxide (mg/litre)") +
@@ -246,6 +265,7 @@ residual sugar in wine increases there is a slight increase in the amount of
 total sulfur dioxide as well.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Bivariate_Plots-14}
+# Scatter plot between residual.sugar and density
 ggplot(data = wines, aes(x = residual.sugar, y = density)) +
   geom_point(alpha = 1/10) + 
   labs (x = "residual.sugar (gm/litre)", y = "density (gm/mL)") +
@@ -259,6 +279,7 @@ wines that have more amounts of residual sugar also have a higher density than
 the wines with lower amounts of residual sugar.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Bivariate_Plots-15}
+# Scatter plot between residual.sugar and alcohol
 ggplot(data = wines, aes(x = residual.sugar, y = alcohol)) +
   geom_point(alpha = 1/3) +
   labs (x = "residual.sugar (gm/litre)", y = "alcohol (% by volume)") +
@@ -273,6 +294,7 @@ amount had residual sugar amount of around 10 gm/litre whereas there are wines
 with lower alcohol amount with residual sugar amount of 20 gm/litre.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Bivariate_Plots-16}
+# Scatter plot between alcohol and density
 ggplot(data = wines, aes(x = alcohol, y = density)) +
   geom_point(alpha = 1/10) +
   labs (x = "alcohol (% by volume)", y = "density (gm/mL)") +
@@ -316,6 +338,8 @@ also between alcohol and density.
 # Relationships among multiple variables
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Creating a new variable "quality_class" whose value is "low" if quality <= 4,
+# "medium" if quality is 5 or 6 and "high" if quality > 6
 wines$quality_class <- NA
 wines <- transform(wines, quality_class = ifelse(quality<=4, "low",
                                           ifelse(quality==5 | quality ==6,
@@ -326,6 +350,7 @@ wines$quality_class <- factor(wines$quality_class, levels =
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Multivariate_Plots-1}
+# Scatter plot of residual.sugar vs density vs quality
 ggplot(data = wines, aes(x = residual.sugar, y=density, col=factor(quality))) +
   geom_point(alpha = 1/10) +
   scale_x_continuous(limits = c(0,25), breaks = seq(0,25,5)) +
@@ -336,6 +361,7 @@ ggplot(data = wines, aes(x = residual.sugar, y=density, col=factor(quality))) +
 ```
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
+# A line graph of residual.sugar vs density grouped by quality_class
 ggplot(data = wines, aes(x = round(residual.sugar), y = density)) +
   geom_line(aes(col = quality_class), stat = "summary", fun.y = mean) +
   scale_x_continuous(limits = c(0,30), breaks = seq(0,30,5)) +
@@ -349,6 +375,7 @@ lower amounts of residual sugar when compared to the wines with lower quality
 ratings.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Multivariate_Plots-2}
+# Scatter plot of alcohol vs density vs quality
 ggplot(data = wines, aes(x = alcohol, y =density, col=factor(quality))) +
   geom_point(alpha = 1/10) +
   scale_y_continuous(limits = c(0.985,1.01)) +
@@ -358,6 +385,7 @@ ggplot(data = wines, aes(x = alcohol, y =density, col=factor(quality))) +
 ```
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
+# A line graph of alcohol vs density grouped by quality_class
 ggplot(data = wines, aes(x = round(alcohol), y = density)) +
   geom_line(aes(col = quality_class), stat = "summary", fun.y = mean) +
   scale_y_continuous(limits = c(0.985,1.01)) +
@@ -371,6 +399,7 @@ quality have higher density but after that these wines have the lowest density
 than the other wines.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Multivariate_Plots-3}
+# Scatter plot of residual.sugar vs alcohol vs quality
 ggplot(data = wines, aes(x = residual.sugar, y=alcohol, col=factor(quality))) +
   geom_point(alpha = 1/5) +
   scale_x_continuous(limits = c(0,30), breaks = seq(0,30,5)) +
@@ -380,6 +409,7 @@ ggplot(data = wines, aes(x = residual.sugar, y=alcohol, col=factor(quality))) +
 ```
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
+# A line graph of residual.sugar vs alcohol grouped by quality_class
 ggplot(data = wines, aes(x = round(residual.sugar), y=alcohol)) +
   geom_line(aes(col = quality_class), stat = "summary", fun.y = mean) +
   scale_x_continuous(limits = c(0,30), breaks = seq(0,30,5)) +
@@ -409,6 +439,7 @@ wines is less than the lower quality wines.
 ### Plot One
 
 ```{r echo=FALSE, Plot_One}
+# Box-plot of quality vs alcohol
 theme_update(plot.title = element_text(hjust = 0.5))
 ggplot(data = wines, aes(x = factor(quality), y = alcohol)) +
   geom_jitter(alpha = 1/4) +
@@ -426,6 +457,7 @@ the means of the amount of alcohol is not very big, it is still considerable.
 ### Plot Two
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Plot_Two}
+# Scatter plot between residual.sugar and density
 ggplot(data = wines, aes(x = residual.sugar, y = density)) +
   geom_point(alpha = 1/10) + 
   labs (x = "residual.sugar (gm/litre)", y = "density (gm/mL)") +
@@ -444,6 +476,7 @@ the sugar content of the wine.
 ### Plot Three
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Plot_Three}
+# Scatter plot of alcohol vs density vs quality
 ggplot(data = wines, aes(x = alcohol, y =density, col=factor(quality))) +
   geom_point(alpha = 1/10) +
   scale_y_continuous(limits = c(0.985,1.01)) +
@@ -454,6 +487,7 @@ ggplot(data = wines, aes(x = alcohol, y =density, col=factor(quality))) +
 ```
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
+# A line graph of alcohol vs density grouped by quality_class
 ggplot(data = wines, aes(x = round(alcohol), y = density)) +
   geom_line(aes(col = quality_class), stat = "summary", fun.y = mean) +
   scale_y_continuous(limits = c(0.985,1.01)) +
